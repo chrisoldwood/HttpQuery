@@ -289,7 +289,9 @@ void CAppCmds::OnRequestSend()
 				// Convert binary data to text.
 				for (int i = 0; i < nRead; ++i)
 				{
-					if ((!isprint(pszBuffer[i])) && (!isspace(pszBuffer[i])))
+					uchar cChar = pszBuffer[i];
+
+					if (!isprint(cChar) && !isspace(cChar))
 						pszBuffer[i] = '.';
 				}
 
@@ -456,7 +458,7 @@ void CAppCmds::OnResponseCopyLocn()
 		strValue.Trim(true, true);
 
 		// Replace URL.
-		ReqDlg.m_ebURL.Text(strValue);
+		ReqDlg.m_ebURL.Text(ReqDlg.m_ebURL.Text() + strValue);
 	}
 }
 

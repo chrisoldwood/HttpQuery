@@ -98,10 +98,6 @@ SOURCE=.\AddHdrDlg.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\App.rc
-# End Source File
-# Begin Source File
-
 SOURCE=.\AppCmds.cpp
 # End Source File
 # Begin Source File
@@ -119,6 +115,10 @@ SOURCE=.\AppWnd.cpp
 # Begin Source File
 
 SOURCE=.\ConnectDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\HttpQuery.rc
 # End Source File
 # Begin Source File
 

@@ -273,19 +273,21 @@ void CAppCmds::OnRequestSend()
 				oBuffer.Size(nAvail);
 
 				// Read all data available.
-				App.m_pSocket->Recv(oBuffer);
+				int nRead = App.m_pSocket->Recv(oBuffer);
+
+				ASSERT(nRead > 0);
 
 				char* pszBuffer = (char*) oBuffer.Buffer();
 
 				// Convert binary data to text.
-				for (int i = 0; i < nAvail; ++i)
+				for (int i = 0; i < nRead; ++i)
 				{
 					if ((!isprint(pszBuffer[i])) && (!isspace(pszBuffer[i])))
 						pszBuffer[i] = '.';
 				}
 
 				// Append to content.
-				strContent += oBuffer.ToString();
+				strContent += oBuffer.ToString(nRead);
 
 				// Got headers yet?
 				if (strHeaders.Empty())

@@ -1,0 +1,5 @@
+- Better handling of binary data.
+
+- CR/CRLF translation.
+
+- Options dialog to allow entering of default headers.

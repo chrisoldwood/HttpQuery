@@ -1,5 +1,5 @@
 - Better handling of binary data.
 
-- CR/CRLF translation.
+- Add handling of cookie data.
 
-- Options dialog to allow entering of default headers.
+- MRU list for connections.

@@ -402,12 +402,13 @@ void CAppCmds::OnResponseConvert()
 	int nLength  = strOldContent.Length();
 	int nNumLFs  = strOldContent.Count('\n');
 	int nBufSize = (nLength - nNumLFs) + (nNumLFs * 2) + 1;
-
 	// Allocate space for the new content.
 	char* pszNewContent = (char*) alloca(nBufSize);
 
+	int n = 0;
+
 	// Replace chars...
-	for (int i = 0, n = 0; i < nLength; ++i)
+	for (int i = 0; i < nLength; ++i)
 	{
 		char cThisChar = strOldContent[i];
 		char cNextChar = ((i+1) < nLength) ? strOldContent[i+1] : '\0';

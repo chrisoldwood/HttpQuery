@@ -57,9 +57,16 @@ void CAddHdrDlg::OnInitDialog()
 	m_cbHeader.Font(CFont(ANSI_FIXED_FONT));
 
 	// Load header combo with defaults.
+	m_cbHeader.Add("Accept: */*");
+	m_cbHeader.Add("Accept-Language: en-gb");
 	m_cbHeader.Add("Connection: Close");
 	m_cbHeader.Add("Connection: Keep-Alive");
+	m_cbHeader.Add("Cookie: ");
+	m_cbHeader.Add("Host: www");
+	m_cbHeader.Add("Referer: http://");
 	m_cbHeader.Add("User-Agent: Mozilla/4.0");
+	m_cbHeader.Add("User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 4.0)");
+	m_cbHeader.Add("User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
 }
 
 /******************************************************************************

@@ -41,7 +41,11 @@ public:
 	void OnRequestSend();
 
 	// Response menu.
+	void OnResponseConvert();
 	void OnResponseSaveAs();
+
+	// Options menu.
+	void OnOptionsPrefs();
 
 	// Window menu.
 	void OnWindowRequest();
@@ -59,6 +63,9 @@ public:
 	void OnUIServerDisconnect();
 
 	void OnUIRequestSend();
+
+	void OnUIResponseConvert();
+	void OnUIResponseSaveAs();
 
 protected:
 	//

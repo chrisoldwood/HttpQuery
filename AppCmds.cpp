@@ -12,6 +12,7 @@
 #include "ConnectDlg.hpp"
 #include "AboutDlg.hpp"
 #include <limits.h>
+#include "PrefsDlg.hpp"
 
 #ifdef _DEBUG
 // For memory leak detection.
@@ -54,7 +55,10 @@ CAppCmds::CAppCmds()
 		// Request menu.
 		CMD_ENTRY(ID_REQUEST_SEND,		OnRequestSend,		OnUIRequestSend,		-1)
 		// Response menu.
-		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	OnResponseSaveAs,	NULL,					-1)
+		CMD_ENTRY(ID_RESPONSE_XLATE,	OnResponseConvert,	OnUIResponseConvert,	-1)
+		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	OnResponseSaveAs,	OnUIResponseSaveAs,		-1)
+		// Options menu.
+		CMD_ENTRY(ID_OPTIONS_PREFS,		OnOptionsPrefs,		NULL,					-1)
 		// Window menu.
 		CMD_ENTRY(ID_WINDOW_REQUEST,	OnWindowRequest,	NULL,					-1)
 		CMD_ENTRY(ID_WINDOW_RESPONSE,	OnWindowResponse,	NULL,					-1)
@@ -388,6 +392,55 @@ void CAppCmds::OnRequestSend()
 }
 
 /******************************************************************************
+** Method:		OnResponseConvert()
+**
+** Description:	Convert LF to CR/LF pairs.
+**
+** Parameters:	None.
+**
+** Returns:		Nothing.
+**
+*******************************************************************************
+*/
+
+void CAppCmds::OnResponseConvert()
+{
+	// Get a shorthand to the Response dialog.
+	CResponseDlg& Dlg = App.m_AppWnd.m_AppDlg.m_dlgResponse;
+
+	// Get response content.
+	CString strOldContent = Dlg.m_ebContent.Text();
+
+	// Calculate buffer size.
+	int nLength  = strOldContent.Length();
+	int nNumLFs  = strOldContent.Count('\n');
+	int nBufSize = (nLength - nNumLFs) + (nNumLFs * 2) + 1;
+
+	// Allocate space for the new content.
+	char* pszNewContent = (char*) alloca(nBufSize);
+
+	// Replace chars...
+	for (int i = 0, n = 0; i < nLength; ++i)
+	{
+		char cThisChar = strOldContent[i];
+		char cNextChar = ((i+1) < nLength) ? strOldContent[i+1] : '\0';
+
+		// Copy char.
+		pszNewContent[n++] = cThisChar;
+
+		// Is next a LF AND this not a CR?
+		if ( (cNextChar == '\n') && (cThisChar != '\r') )
+			pszNewContent[n++] = '\r';
+	}
+
+	// Terminate string.
+	pszNewContent[n] = '\0';
+
+	// Update response content.
+	Dlg.m_ebContent.Text(pszNewContent);
+}
+
+/******************************************************************************
 ** Method:		OnResponseSaveAs()
 **
 ** Description:	Save the response to a file.
@@ -428,6 +481,27 @@ void CAppCmds::OnResponseSaveAs()
 	{
 		// Notify user.
 		App.AlertMsg(e.ErrorText());
+	}
+}
+
+/******************************************************************************
+** Method:		OnOptionsPrefs()
+**
+** Description:	Configure the application.
+**
+** Parameters:	None.
+**
+** Returns:		Nothing.
+**
+*******************************************************************************
+*/
+
+void CAppCmds::OnOptionsPrefs()
+{
+	CPrefsDlg Dlg;
+
+	if (Dlg.RunModal(App.m_AppWnd) == IDOK)
+	{
 	}
 }
 
@@ -515,4 +589,19 @@ void CAppCmds::OnUIRequestSend()
 	bool bConnOpen = (App.m_pSocket != NULL);
 
 	App.m_AppWnd.Menu()->EnableCmd(ID_REQUEST_SEND, bConnOpen);
+}
+
+void CAppCmds::OnUIResponseConvert()
+{
+	bool bContent = (App.m_AppWnd.m_AppDlg.m_dlgResponse.m_ebContent.TextLength() > 0);
+
+	App.m_AppWnd.Menu()->EnableCmd(ID_RESPONSE_XLATE, bContent);
+}
+
+void CAppCmds::OnUIResponseSaveAs()
+{
+	bool bHeaders = (App.m_AppWnd.m_AppDlg.m_dlgResponse.m_ebHeaders.TextLength() > 0);
+	bool bContent = (App.m_AppWnd.m_AppDlg.m_dlgResponse.m_ebContent.TextLength() > 0);
+
+	App.m_AppWnd.Menu()->EnableCmd(ID_RESPONSE_SAVE_AS, (bHeaders || bContent));
 }

@@ -78,6 +78,9 @@ void CRequestDlg::OnInitDialog()
 	m_cbVerb.Add("POST");
 	m_cbVerb.CurSel(0);
 
+	// Set default URL.
+	m_ebURL.Text("/");
+
 	// Add request formats.
 	m_cbFormat.Add("HTTP/1.0");
 	m_cbFormat.Add("HTTP/1.1");

@@ -42,6 +42,8 @@ public:
 
 	// Response menu.
 	void OnResponseConvert();
+	void OnResponseCopyLocn();
+	void OnResponseCopyCookie();
 	void OnResponseSaveAs();
 
 	// Options menu.
@@ -65,6 +67,8 @@ public:
 	void OnUIRequestSend();
 
 	void OnUIResponseConvert();
+	void OnUIResponseCopyLocn();
+	void OnUIResponseCopyCookie();
 	void OnUIResponseSaveAs();
 
 protected:

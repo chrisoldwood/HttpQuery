@@ -49,23 +49,25 @@ CAppCmds::CAppCmds()
 	// Define the command table.
 	DEFINE_CMD_TABLE
 		// Server menu.
-		CMD_ENTRY(ID_SERVER_CONNECT,	OnServerConnect,	OnUIServerConnect,		-1)
-		CMD_ENTRY(ID_SERVER_DISCONNECT,	OnServerDisconnect,	OnUIServerDisconnect,	-1)
-		CMD_ENTRY(ID_SERVER_EXIT,		OnServerExit,		NULL,					-1)
+		CMD_ENTRY(ID_SERVER_CONNECT,	OnServerConnect,		OnUIServerConnect,		-1)
+		CMD_ENTRY(ID_SERVER_DISCONNECT,	OnServerDisconnect,		OnUIServerDisconnect,	-1)
+		CMD_ENTRY(ID_SERVER_EXIT,		OnServerExit,			NULL,					-1)
 		// Request menu.
-		CMD_ENTRY(ID_REQUEST_SEND,		OnRequestSend,		OnUIRequestSend,		-1)
+		CMD_ENTRY(ID_REQUEST_SEND,		OnRequestSend,			OnUIRequestSend,		-1)
 		// Response menu.
-		CMD_ENTRY(ID_RESPONSE_XLATE,	OnResponseConvert,	OnUIResponseConvert,	-1)
-		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	OnResponseSaveAs,	OnUIResponseSaveAs,		-1)
+		CMD_ENTRY(ID_RESPONSE_XLATE,	OnResponseConvert,		OnUIResponseConvert,	-1)
+		CMD_ENTRY(ID_RESPONSE_LOCN,		OnResponseCopyLocn,		OnUIResponseCopyLocn,	-1)
+		CMD_ENTRY(ID_RESPONSE_COOKIE,	OnResponseCopyCookie,	OnUIResponseCopyCookie,	-1)
+		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	OnResponseSaveAs,		OnUIResponseSaveAs,		-1)
 		// Options menu.
-		CMD_ENTRY(ID_OPTIONS_PREFS,		OnOptionsPrefs,		NULL,					-1)
+		CMD_ENTRY(ID_OPTIONS_PREFS,		OnOptionsPrefs,			NULL,					-1)
 		// Window menu.
-		CMD_ENTRY(ID_WINDOW_REQUEST,	OnWindowRequest,	NULL,					-1)
-		CMD_ENTRY(ID_WINDOW_RESPONSE,	OnWindowResponse,	NULL,					-1)
-		CMD_ENTRY(ID_WINDOW_NEXT,		OnWindowNext,		NULL,					-1)
-		CMD_ENTRY(ID_WINDOW_PREV,		OnWindowPrev,		NULL,					-1)
+		CMD_ENTRY(ID_WINDOW_REQUEST,	OnWindowRequest,		NULL,					-1)
+		CMD_ENTRY(ID_WINDOW_RESPONSE,	OnWindowResponse,		NULL,					-1)
+		CMD_ENTRY(ID_WINDOW_NEXT,		OnWindowNext,			NULL,					-1)
+		CMD_ENTRY(ID_WINDOW_PREV,		OnWindowPrev,			NULL,					-1)
 		// Help menu.
-		CMD_ENTRY(ID_HELP_ABOUT,		OnHelpAbout,		NULL,					10)
+		CMD_ENTRY(ID_HELP_ABOUT,		OnHelpAbout,			NULL,					10)
 	END_CMD_TABLE
 }
 
@@ -262,6 +264,7 @@ void CAppCmds::OnRequestSend()
 		CBuffer oBuffer;
 		CString strHeaders;
 		CString strContent;
+		CString strValue;
 
 		int     nContentLen = -1;
 		DWORD   dwStartTime = ::GetTickCount();
@@ -310,27 +313,9 @@ void CAppCmds::OnRequestSend()
 						strHeaders = strContent.Left(nHdrSize);
 						strContent.Delete(0, nHdrSize);
 
-						// Split headers string into separate lines.
-						CStrTok oStrTok(strHeaders, "\r\n", CStrTok::MERGE_SEPS);
-
-						// Find content-length field.
-						while (oStrTok.MoreTokens())
-						{
-							// Get next line.
-							CString strLine = oStrTok.NextToken().Trim(true, false);
-
-							// Is the field we're after?
-							if (_strnicmp(strLine, "content-length:", 15) == 0)
-							{
-								const char* pszValue = strchr(strLine, ':');
-
-								// Extract field value.
-								if (pszValue != NULL)
-									nContentLen = atoi(pszValue+1);
-
-								break;
-							}
-						}
+						// Parse Content-Lemgth, if returned.
+						if (App.GetHeaderValue(strHeaders, "content-length:", strValue))
+							nContentLen = atoi(strValue);
 
 						// Display the response headers and any initial content.
 						App.m_AppWnd.m_AppDlg.m_tcTabCtrl.CurSel(CAppDlg::RESPONSE_TAB);		
@@ -389,6 +374,8 @@ void CAppCmds::OnRequestSend()
 		App.AlertMsg("Failed to read response:\n\n%s", e.ErrorText());
 		return;
 	}
+
+	UpdateUI();
 }
 
 /******************************************************************************
@@ -438,6 +425,65 @@ void CAppCmds::OnResponseConvert()
 
 	// Update response content.
 	Dlg.m_ebContent.Text(pszNewContent);
+}
+
+/******************************************************************************
+** Method:		OnResponseCopyLocn()
+**
+** Description:	Copy the response header value for "Location:" back into the
+**				request.
+**
+** Parameters:	None.
+**
+** Returns:		Nothing.
+**
+*******************************************************************************
+*/
+
+void CAppCmds::OnResponseCopyLocn()
+{
+	// Get shorthands to the Request & Response dialogs.
+	CRequestDlg&  ReqDlg = App.m_AppWnd.m_AppDlg.m_dlgRequest;
+	CResponseDlg& RspDlg = App.m_AppWnd.m_AppDlg.m_dlgResponse;
+
+	CString strValue;
+
+	// Find header value, if returned.
+	if (App.GetHeaderValue(RspDlg.m_ebHeaders.Text(), "Location:", strValue))
+	{
+		// Trim whitespace.
+		strValue.Trim(true, true);
+
+		// Replace URL.
+		ReqDlg.m_ebURL.Text(strValue);
+	}
+}
+
+/******************************************************************************
+** Method:		OnResponseCopyCookie()
+**
+** Description:	Copy the response header value for "Set-Cookie:" back into the
+**				request as the "Cookie:".
+**
+** Parameters:	None.
+**
+** Returns:		Nothing.
+**
+*******************************************************************************
+*/
+
+void CAppCmds::OnResponseCopyCookie()
+{
+	// Get shorthands to the Request & Response dialogs.
+//	CRequestDlg&  ReqDlg = App.m_AppWnd.m_AppDlg.m_dlgRequest;
+	CResponseDlg& RspDlg = App.m_AppWnd.m_AppDlg.m_dlgResponse;
+
+	CString strValue;
+
+	// Find header value, if returned.
+	if (App.GetHeaderValue(RspDlg.m_ebHeaders.Text(), "Set-Cookie:", strValue))
+	{
+	}
 }
 
 /******************************************************************************
@@ -596,6 +642,20 @@ void CAppCmds::OnUIResponseConvert()
 	bool bContent = (App.m_AppWnd.m_AppDlg.m_dlgResponse.m_ebContent.TextLength() > 0);
 
 	App.m_AppWnd.Menu()->EnableCmd(ID_RESPONSE_XLATE, bContent);
+}
+
+void CAppCmds::OnUIResponseCopyLocn()
+{
+	bool bHeaders = (App.m_AppWnd.m_AppDlg.m_dlgResponse.m_ebHeaders.TextLength() > 0);
+
+	App.m_AppWnd.Menu()->EnableCmd(ID_RESPONSE_LOCN, bHeaders);
+}
+
+void CAppCmds::OnUIResponseCopyCookie()
+{
+	bool bHeaders = (App.m_AppWnd.m_AppDlg.m_dlgResponse.m_ebHeaders.TextLength() > 0);
+
+	App.m_AppWnd.Menu()->EnableCmd(ID_RESPONSE_COOKIE, bHeaders);
 }
 
 void CAppCmds::OnUIResponseSaveAs()

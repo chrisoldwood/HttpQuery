@@ -114,7 +114,7 @@ void CAppCmds::OnServerConnect()
 			ASSERT(App.m_pSocket == NULL);
 
 			// Allocate a socket and connect.
-			App.m_pSocket = new CTCPSocket;
+			App.m_pSocket = new CTCPCltSocket;
 			App.m_pSocket->Connect(Dlg.m_strHost, Dlg.m_nPort);
 
 			// Remember new settings.

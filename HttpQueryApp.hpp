@@ -31,16 +31,16 @@ public:
 	//
 	// Members
 	//
-	CAppWnd		m_AppWnd;			// Main window.
-	CAppCmds	m_AppCmds;			// Command handler.
+	CAppWnd			m_AppWnd;			// Main window.
+	CAppCmds		m_AppCmds;			// Command handler.
 
-	CIniFile	m_oIniFile;			// .INI FIle
-	CRect		m_rcLastPos;		// Main window position.
-	CString		m_strLastHost;		// Last host contacted.
-	int			m_nLastPort;		// Last port contacted.
-	CStrArray	m_astrDefHeaders;	// Default headers.
+	CIniFile		m_oIniFile;			// .INI FIle
+	CRect			m_rcLastPos;		// Main window position.
+	CString			m_strLastHost;		// Last host contacted.
+	int				m_nLastPort;		// Last port contacted.
+	CStrArray		m_astrDefHeaders;	// Default headers.
 
-	CTCPSocket*	m_pSocket;			// Connection.
+	CTCPCltSocket*	m_pSocket;			// Connection.
 
 	//
 	// Constants.

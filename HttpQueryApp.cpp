@@ -224,3 +224,47 @@ void CHttpQueryApp::SaveConfig()
 		m_oIniFile.WriteString("Headers", strEntry, m_astrDefHeaders[i]);
 	}
 }
+
+/******************************************************************************
+** Method:		GetHeaderValue()
+**
+** Description:	Helper method to get the value for a response header.
+**
+** Parameters:	pszHeaders		The response headers.
+**				pszField		The header field to find.
+**				strValue		The return buffer for the value.
+**
+** Returns:		true or false.
+**
+*******************************************************************************
+*/
+
+bool CHttpQueryApp::GetHeaderValue(const char* pszHeaders, const char* pszField, CString& strValue)
+{
+	bool bFound    = false;
+	int  nFieldLen = strlen(pszField);
+
+	// Split headers string into separate lines.
+	CStrTok oStrTok(pszHeaders, "\r\n", CStrTok::MERGE_SEPS);
+
+	// Find field...
+	while ( (oStrTok.MoreTokens()) && (!bFound) )
+	{
+		// Get next line.
+		CString strLine = oStrTok.NextToken().Trim(true, false);
+
+		// Is the field we're after?
+		if (strnicmp(strLine, pszField, nFieldLen) == 0)
+		{
+			const char* pszValue = strchr(strLine, ':');
+
+			// Extract field value.
+			if (pszValue != NULL)
+				strValue = pszValue+1;
+
+			bFound = true;
+		}
+	}
+
+	return bFound;
+}

@@ -43,6 +43,11 @@ public:
 	CTCPCltSocket*	m_pSocket;			// Connection.
 
 	//
+	// Helper methods.
+	//
+	static bool GetHeaderValue(const char* pszHeaders, const char* pszField, CString& strValue);
+
+	//
 	// Constants.
 	//
 	static const char* VERSION;

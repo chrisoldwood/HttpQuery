@@ -296,7 +296,7 @@ void CAppCmds::OnRequestSend()
 
 					// Look for the CRLFCRLF or CRCR termination characters.
 					if ( ((nPos = strContent.Find("\r\n\r\n")) != -1)
-					  || ((nPos = strContent.Find("\r\r")) != -1) )
+					  || ((nPos = strContent.Find("\r\r"))     != -1) )
 					{
 						// Calculate header size.
 						int nTermChars = (strContent[nPos+1] == '\r') ? 2 : 4;
@@ -306,25 +306,19 @@ void CAppCmds::OnRequestSend()
 						strHeaders = strContent.Left(nHdrSize);
 						strContent.Delete(0, nHdrSize);
 
-						CStrArray astrHeaders;
-
 						// Split headers string into separate lines.
-						strHeaders.Split("\r", astrHeaders);
+						CStrTok oStrTok(strHeaders, "\r\n", CStrTok::MERGE_SEPS);
 
 						// Find content-length field.
-						for (int i = 0; i < astrHeaders.Size(); ++i)
+						while (oStrTok.MoreTokens())
 						{
 							// Get next line.
-							const char* pszLine = astrHeaders[i];
+							CString strLine = oStrTok.NextToken().Trim(true, false);
 
-							// Skip any leading whitespace.
-							while (isspace(*pszLine))
-								++pszLine;
-							
 							// Is the field we're after?
-							if (_strnicmp(pszLine, "content-length:", 15) == 0)
+							if (_strnicmp(strLine, "content-length:", 15) == 0)
 							{
-								const char* pszValue = strchr(pszLine, ':');
+								const char* pszValue = strchr(strLine, ':');
 
 								// Extract field value.
 								if (pszValue != NULL)

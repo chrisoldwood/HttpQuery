@@ -23,8 +23,8 @@ CFG=HttpQuery - Win32 Debug
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName ""$/Win32/HttpQuery", ZWCAAAAA"
+# PROP Scc_LocalPath "."
 CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
@@ -193,6 +193,10 @@ SOURCE=.\App.rcv
 SOURCE=.\Toolbar.bmp
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\HttpQuery.ini
+# End Source File
 # Begin Source File
 
 SOURCE=.\ReadMe.txt

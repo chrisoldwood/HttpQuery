@@ -28,9 +28,9 @@ CHttpQueryApp App;
 */
 
 #ifdef _DEBUG
-const char* CHttpQueryApp::VERSION      = "v1.0 [Debug]";
+const char* CHttpQueryApp::VERSION      = "v1.1 [Debug]";
 #else
-const char* CHttpQueryApp::VERSION      = "v1.0";
+const char* CHttpQueryApp::VERSION      = "v1.1";
 #endif
 const char* CHttpQueryApp::INI_FILE_VER = "1.0";
 

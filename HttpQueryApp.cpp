@@ -211,4 +211,16 @@ void CHttpQueryApp::SaveConfig()
 	m_oIniFile.WriteInt("UI", "Top",    m_rcLastPos.top   );
 	m_oIniFile.WriteInt("UI", "Right",  m_rcLastPos.right );
 	m_oIniFile.WriteInt("UI", "Bottom", m_rcLastPos.bottom);
+
+	// Write the default headers.
+	m_oIniFile.WriteInt("Headers", "Count", m_astrDefHeaders.Size());
+
+	for (int i = 0; i < m_astrDefHeaders.Size(); ++i)
+	{
+		CString strEntry;
+
+		strEntry.Format("Header[%d]", i);
+
+		m_oIniFile.WriteString("Headers", strEntry, m_astrDefHeaders[i]);
+	}
 }

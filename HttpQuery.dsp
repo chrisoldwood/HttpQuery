@@ -94,6 +94,10 @@ SOURCE=.\AboutDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\AddHdrDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\App.rc
 # End Source File
 # Begin Source File
@@ -122,6 +126,10 @@ SOURCE=.\HttpQueryApp.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\PrefsDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\RequestDlg.cpp
 # End Source File
 # Begin Source File
@@ -135,6 +143,10 @@ SOURCE=.\ResponseDlg.cpp
 # Begin Source File
 
 SOURCE=.\AboutDlg.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\AddHdrDlg.hpp
 # End Source File
 # Begin Source File
 
@@ -163,6 +175,10 @@ SOURCE=.\ConnectDlg.hpp
 # Begin Source File
 
 SOURCE=.\HttpQueryApp.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\PrefsDlg.hpp
 # End Source File
 # Begin Source File
 

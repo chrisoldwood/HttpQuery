@@ -14,7 +14,7 @@
 
 /******************************************************************************
 ** 
-** .
+** The preferences configuration dialog.
 **
 *******************************************************************************
 */
@@ -35,12 +35,21 @@ protected:
 	//
 	// Controls.
 	//
+	CListBox	m_lbHeaders;
 
 	//
 	// Message handlers.
 	//
 	virtual void OnInitDialog();
 	virtual bool OnOk();
+
+	void OnAdd();
+	void OnRemove();
+
+	//
+	// Internal methods.
+	//
+	void UpdateUI();
 };
 
 /******************************************************************************

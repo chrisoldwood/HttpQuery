@@ -27,14 +27,17 @@ public:
 	//
 	CAddHdrDlg();
 	
-protected:
 	//
 	// Members.
 	//
+	CString	m_strHeader;
+
+protected:
 	
 	//
 	// Controls.
 	//
+	CComboBox	m_cbHeader;
 
 	//
 	// Message handlers.

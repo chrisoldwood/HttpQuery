@@ -10,10 +10,14 @@
 #define ID_SERVER_CONNECT               101
 #define ID_SERVER_DISCONNECT            102
 #define ID_SERVER_EXIT                  109
+#define IDD_DEF_HEADER                  133
 #define ID_REQUEST_POPUP                200
 #define ID_REQUEST_SEND                 209
 #define ID_RESPONSE_POPUP               300
-#define ID_RESPONSE_SAVE_AS             301
+#define ID_RESPONSE_XLATE               301
+#define ID_RESPONSE_SAVE_AS             302
+#define ID_OPTIONS_POPUP                400
+#define ID_OPTIONS_PREFS                401
 #define ID_WINDOW_POPUP                 800
 #define ID_WINDOW_REQUEST               801
 #define ID_WINDOW_RESPONSE              802
@@ -39,12 +43,16 @@
 #define IDC_TAB                         1098
 #define IDC_HOST                        1099
 #define IDC_PORT                        1100
+#define IDC_HEADERS                     1101
+#define IDC_ADD                         1102
+#define IDC_REMOVE                      1103
+#define IDC_HEADER                      1104
 #define IDD_MAIN                        5000
 #define IDD_ABOUT                       5001
 #define IDD_REQUEST                     5002
 #define IDD_RESPONSE                    5003
 #define IDD_CONNECT                     5004
-#define ID_RES                          61745
+#define IDD_PREFS                       5005
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -52,9 +60,9 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         169
-#define _APS_NEXT_CONTROL_VALUE         1101
+#define _APS_NEXT_RESOURCE_VALUE        134
+#define _APS_NEXT_COMMAND_VALUE         171
+#define _APS_NEXT_CONTROL_VALUE         1105
 #define _APS_NEXT_SYMED_VALUE           108
 #endif
 #endif

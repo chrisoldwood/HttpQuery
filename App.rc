@@ -85,6 +85,9 @@ BEGIN
     BEGIN
         MENUITEM "&Convert To CR/LF",           ID_RESPONSE_XLATE
         MENUITEM SEPARATOR
+        MENUITEM "Copy ""&Location:"" To Request", ID_RESPONSE_LOCN
+        MENUITEM "Copy ""Coo&kie:"" To Request", ID_RESPONSE_COOKIE
+        MENUITEM SEPARATOR
         MENUITEM "&Save...",                    ID_RESPONSE_SAVE_AS
     END
     POPUP "&Options"
@@ -351,6 +354,12 @@ STRINGTABLE DISCARDABLE
 BEGIN
     ID_RESPONSE_POPUP       "Response options"
     ID_RESPONSE_XLATE       "Convert content to CRLF format\nConvert"
+    ID_RESPONSE_LOCN        "Copy ""Location:"" header value back into the request"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_RESPONSE_COOKIE      "Copy ""Cookie:"" header value back into the request"
     ID_RESPONSE_SAVE_AS     "Save the response to a file"
 END
 

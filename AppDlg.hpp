@@ -12,6 +12,12 @@
 #ifndef APPDLG_HPP
 #define APPDLG_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/MainDlg.hpp>
+#include <WCL/TabWndHost.hpp>
 #include "RequestDlg.hpp"
 #include "ResponseDlg.hpp"
 

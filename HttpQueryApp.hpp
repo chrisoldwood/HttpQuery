@@ -12,6 +12,19 @@
 #ifndef HTTPQUERYAPP_HPP
 #define HTTPQUERYAPP_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/App.hpp>
+#include "AppWnd.hpp"
+#include "AppCmds.hpp"
+#include <WCL/IniFile.hpp>
+#include <WCL/StrArray.hpp>
+
+// Forward declarations.
+class CTCPCltSocket;
+
 /******************************************************************************
 ** 
 ** The application class.

@@ -12,6 +12,13 @@
 #ifndef RESPONSEDLG_HPP
 #define RESPONSEDLG_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/CommonUI.hpp>
+#include <WCL/Brush.hpp>
+
 /******************************************************************************
 ** 
 ** The view used to display the response details.

@@ -12,6 +12,12 @@
 #ifndef REQUESTDLG_HPP
 #define REQUESTDLG_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/CommonUI.hpp>
+
 /******************************************************************************
 ** 
 ** The view used to enter the request details.

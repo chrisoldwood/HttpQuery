@@ -8,16 +8,18 @@
 *******************************************************************************
 */
 
-#include "AppHeaders.hpp"
+#include "Common.hpp"
+#include "AppCmds.hpp"
+#include "HttpQueryApp.hpp"
 #include "ConnectDlg.hpp"
 #include "AboutDlg.hpp"
 #include <limits.h>
 #include "PrefsDlg.hpp"
-
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
+#include <WCL/BusyCursor.hpp>
+#include <NCL/TCPCltSocket.hpp>
+#include <NCL/SocketException.hpp>
+#include <WCL/File.hpp>
+#include <WCL/FileException.hpp>
 
 /******************************************************************************
 **

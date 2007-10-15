@@ -8,7 +8,10 @@
 *******************************************************************************
 */
 
-#include "AppHeaders.hpp"
+#include "Common.hpp"
+#include "HttpQueryApp.hpp"
+#include <WCL/StrTok.hpp>
+#include <NCL/WinSock.hpp>
 
 /******************************************************************************
 **

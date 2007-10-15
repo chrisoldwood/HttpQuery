@@ -8,14 +8,9 @@
 *******************************************************************************
 */
 
-#include "AppHeaders.hpp"
+#include "Common.hpp"
 #include "ConnectDlg.hpp"
 #include <limits.h>
-
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
 
 /******************************************************************************
 ** Method:		Default constructor.

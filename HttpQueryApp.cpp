@@ -257,7 +257,7 @@ bool CHttpQueryApp::GetHeaderValue(const char* pszHeaders, const char* pszField,
 		CString strLine = oStrTok.NextToken().Trim(true, false);
 
 		// Is the field we're after?
-		if (strnicmp(strLine, pszField, nFieldLen) == 0)
+		if (_strnicmp(strLine, pszField, nFieldLen) == 0)
 		{
 			const char* pszValue = strchr(strLine, ':');
 

@@ -51,25 +51,25 @@ CAppCmds::CAppCmds()
 	// Define the command table.
 	DEFINE_CMD_TABLE
 		// Server menu.
-		CMD_ENTRY(ID_SERVER_CONNECT,	OnServerConnect,		OnUIServerConnect,		-1)
-		CMD_ENTRY(ID_SERVER_DISCONNECT,	OnServerDisconnect,		OnUIServerDisconnect,	-1)
-		CMD_ENTRY(ID_SERVER_EXIT,		OnServerExit,			NULL,					-1)
+		CMD_ENTRY(ID_SERVER_CONNECT,	&CAppCmds::OnServerConnect,			&CAppCmds::OnUIServerConnect,		-1)
+		CMD_ENTRY(ID_SERVER_DISCONNECT,	&CAppCmds::OnServerDisconnect,		&CAppCmds::OnUIServerDisconnect,	-1)
+		CMD_ENTRY(ID_SERVER_EXIT,		&CAppCmds::OnServerExit,			NULL,								-1)
 		// Request menu.
-		CMD_ENTRY(ID_REQUEST_SEND,		OnRequestSend,			OnUIRequestSend,		-1)
+		CMD_ENTRY(ID_REQUEST_SEND,		&CAppCmds::OnRequestSend,			&CAppCmds::OnUIRequestSend,			-1)
 		// Response menu.
-		CMD_ENTRY(ID_RESPONSE_XLATE,	OnResponseConvert,		OnUIResponseConvert,	-1)
-		CMD_ENTRY(ID_RESPONSE_LOCN,		OnResponseCopyLocn,		OnUIResponseCopyLocn,	-1)
-		CMD_ENTRY(ID_RESPONSE_COOKIE,	OnResponseCopyCookie,	OnUIResponseCopyCookie,	-1)
-		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	OnResponseSaveAs,		OnUIResponseSaveAs,		-1)
+		CMD_ENTRY(ID_RESPONSE_XLATE,	&CAppCmds::OnResponseConvert,		&CAppCmds::OnUIResponseConvert,		-1)
+		CMD_ENTRY(ID_RESPONSE_LOCN,		&CAppCmds::OnResponseCopyLocn,		&CAppCmds::OnUIResponseCopyLocn,	-1)
+		CMD_ENTRY(ID_RESPONSE_COOKIE,	&CAppCmds::OnResponseCopyCookie,	&CAppCmds::OnUIResponseCopyCookie,	-1)
+		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	&CAppCmds::OnResponseSaveAs,		&CAppCmds::OnUIResponseSaveAs,		-1)
 		// Options menu.
-		CMD_ENTRY(ID_OPTIONS_PREFS,		OnOptionsPrefs,			NULL,					-1)
+		CMD_ENTRY(ID_OPTIONS_PREFS,		&CAppCmds::OnOptionsPrefs,			NULL,								-1)
 		// Window menu.
-		CMD_ENTRY(ID_WINDOW_REQUEST,	OnWindowRequest,		NULL,					-1)
-		CMD_ENTRY(ID_WINDOW_RESPONSE,	OnWindowResponse,		NULL,					-1)
-		CMD_ENTRY(ID_WINDOW_NEXT,		OnWindowNext,			NULL,					-1)
-		CMD_ENTRY(ID_WINDOW_PREV,		OnWindowPrev,			NULL,					-1)
+		CMD_ENTRY(ID_WINDOW_REQUEST,	&CAppCmds::OnWindowRequest,			NULL,								-1)
+		CMD_ENTRY(ID_WINDOW_RESPONSE,	&CAppCmds::OnWindowResponse,		NULL,								-1)
+		CMD_ENTRY(ID_WINDOW_NEXT,		&CAppCmds::OnWindowNext,			NULL,								-1)
+		CMD_ENTRY(ID_WINDOW_PREV,		&CAppCmds::OnWindowPrev,			NULL,								-1)
 		// Help menu.
-		CMD_ENTRY(ID_HELP_ABOUT,		OnHelpAbout,			NULL,					10)
+		CMD_ENTRY(ID_HELP_ABOUT,		&CAppCmds::OnHelpAbout,				NULL,								10)
 	END_CMD_TABLE
 }
 

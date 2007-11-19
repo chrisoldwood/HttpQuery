@@ -51,7 +51,7 @@ void CConnectDlg::OnInitDialog()
 
 	// Display defaults.
 	m_ebHost.Text(m_strHost);
-	m_ebPort.Text(itoa(m_nPort, szValue, 10));
+	m_ebPort.Text(_itoa(m_nPort, szValue, 10));
 }
 
 /******************************************************************************

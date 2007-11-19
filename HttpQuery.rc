@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "Resource.h"
 
@@ -7,10 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#define APSTUDIO_HIDDEN_SYMBOLS
-#include "windows.h"
-#undef APSTUDIO_HIDDEN_SYMBOLS
-#include "WCL/WclRsc.h"
+#include <WCL/CommonRsc.h>
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -30,23 +27,19 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "Resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
-    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""windows.h""\r\n"
-    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""WclRsc.h""\r\n"
+    "#include <WCL/CommonRsc.h>\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
-    "\r\n"
     "#include ""App.rcv""\r\n"
     "\0"
 END
@@ -61,14 +54,14 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_APPICON             ICON    DISCARDABLE     "App.ico"
+IDR_APPICON             ICON                    "App.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
 //
 
-IDR_APPMENU MENU DISCARDABLE 
+IDR_APPMENU MENU 
 BEGIN
     POPUP "&Server"
     BEGIN
@@ -111,15 +104,16 @@ END
 // Dialog
 //
 
-IDD_MAIN DIALOG DISCARDABLE  0, 0, 316, 176
-STYLE WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN
+IDD_MAIN DIALOG  0, 0, 316, 176
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "Tab1",IDC_TAB,"SysTabControl32",0x0,5,5,305,165
 END
 
-IDD_ABOUT DIALOG DISCARDABLE  0, 0, 122, 126
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ABOUT DIALOG  0, 0, 122, 126
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "About Http Query"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -137,8 +131,8 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,35,100,50,15
 END
 
-IDD_REQUEST DIALOG DISCARDABLE  0, 0, 261, 206
-STYLE WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN
+IDD_REQUEST DIALOG  0, 0, 261, 206
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN
 FONT 8, "MS Sans Serif"
 BEGIN
     EDITTEXT        IDC_REQUEST_URL,60,5,140,14,ES_AUTOHSCROLL
@@ -156,8 +150,8 @@ BEGIN
                     ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
 END
 
-IDD_RESPONSE DIALOG DISCARDABLE  0, 0, 211, 186
-STYLE WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN
+IDD_RESPONSE DIALOG  0, 0, 211, 186
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN
 FONT 8, "MS Sans Serif"
 BEGIN
     CTEXT           "Headers",IDC_RESPONSE_HEADERS_LABEL,5,5,200,10,
@@ -172,8 +166,8 @@ BEGIN
                     WS_VSCROLL
 END
 
-IDD_CONNECT DIALOG DISCARDABLE  0, 0, 147, 86
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_CONNECT DIALOG  0, 0, 147, 86
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Connect To Server"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -185,8 +179,8 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,80,60,50,14
 END
 
-IDD_PREFS DIALOG DISCARDABLE  0, 0, 242, 141
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_PREFS DIALOG  0, 0, 242, 141
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Preferences"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -199,8 +193,8 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,125,115,50,14
 END
 
-IDD_DEF_HEADER DIALOG DISCARDABLE  0, 0, 222, 61
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_DEF_HEADER DIALOG  0, 0, 222, 61
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Default Header"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -216,14 +210,14 @@ END
 // Bitmap
 //
 
-IDR_APPTOOLBAR          BITMAP  DISCARDABLE     "Toolbar.bmp"
+IDR_APPTOOLBAR          BITMAP                  "Toolbar.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Accelerator
 //
 
-IDR_APPACCEL ACCELERATORS DISCARDABLE 
+IDR_APPACCEL ACCELERATORS 
 BEGIN
     "E",            ID_REQUEST_SEND,        VIRTKEY, CONTROL, NOINVERT
     "O",            ID_SERVER_CONNECT,      VIRTKEY, CONTROL, NOINVERT
@@ -242,7 +236,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO DISCARDABLE 
+GUIDELINES DESIGNINFO 
 BEGIN
     IDD_ABOUT, DIALOG
     BEGIN
@@ -281,49 +275,49 @@ END
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_SYS_RESTORE         "Restore the window size and position."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_SYS_MOVE            "Move the window"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_SYS_SIZE            "Resize the window"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_SYS_MINIMIZE        "Minimize the window"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_SYS_MAXIMIZE        "Maximize the window"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_SYS_CLOSE           "Close the window"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_SYS_SWITCH          "Switch to another application"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_HELP_POPUP           "Help options"
     ID_HELP_CONTENTS        "Displays the help contents page\nHelp"
     ID_HELP_ABOUT           "Show Http Query version\nAbout"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_SERVER_POPUP         "Server options"
     ID_SERVER_CONNECT       "Open a connection to a server"
@@ -331,12 +325,12 @@ BEGIN
     ID_SERVER_EXIT          "Close the application"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_REQUEST_POPUP        "Request options"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_WINDOW_POPUP         "Window options"
     ID_WINDOW_REQUEST       "Switch to the request view"
@@ -345,25 +339,25 @@ BEGIN
     ID_WINDOW_PREV          "Switch to the previous view"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_REQUEST_SEND         "Send the request"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_RESPONSE_POPUP       "Response options"
     ID_RESPONSE_XLATE       "Convert content to CRLF format\nConvert"
     ID_RESPONSE_LOCN        "Copy ""Location:"" header value back into the request"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_RESPONSE_COOKIE      "Copy ""Cookie:"" header value back into the request"
     ID_RESPONSE_SAVE_AS     "Save the response to a file"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     ID_OPTIONS_POPUP        "Settings"
     ID_OPTIONS_PREFS        "Configure application settings\nPreferences"
@@ -379,7 +373,6 @@ END
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
-
 #include "App.rcv"
 
 /////////////////////////////////////////////////////////////////////////////

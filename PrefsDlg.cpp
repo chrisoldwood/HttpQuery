@@ -56,12 +56,12 @@ void CPrefsDlg::OnInitDialog()
 	m_lbHeaders.Font(CFont(ANSI_FIXED_FONT));
 
 	// Load the current headers.
-	for (int i = 0; i < App.m_astrDefHeaders.Size(); ++i)
+	for (size_t i = 0; i < App.m_astrDefHeaders.Size(); ++i)
 		m_lbHeaders.Add(App.m_astrDefHeaders[i]);
 
 	// Select the 1st by default.
 	if (m_lbHeaders.Count() > 0)
-		m_lbHeaders.CurSel(0);
+		m_lbHeaders.CurSel(0U);
 
 	UpdateUI();
 }
@@ -84,7 +84,7 @@ bool CPrefsDlg::OnOk()
 	App.m_astrDefHeaders.DeleteAll();
 
 	// Save new header list.
-	for (int i = 0; i < m_lbHeaders.Count(); ++i)
+	for (size_t i = 0; i < m_lbHeaders.Count(); ++i)
 		App.m_astrDefHeaders.Add(m_lbHeaders.Text(i));
 
 	return true;
@@ -114,7 +114,7 @@ void CPrefsDlg::OnAdd()
 
 		// Update selection, if required.
 		if (m_lbHeaders.Count() == 1)
-			m_lbHeaders.CurSel(0);
+			m_lbHeaders.CurSel(0U);
 	}
 
 	UpdateUI();
@@ -135,7 +135,7 @@ void CPrefsDlg::OnAdd()
 void CPrefsDlg::OnRemove()
 {
 	// Get current selection.
-	int nSel = m_lbHeaders.CurSel();
+	size_t nSel = m_lbHeaders.CurSel();
 
 	ASSERT(nSel != LB_ERR);
 

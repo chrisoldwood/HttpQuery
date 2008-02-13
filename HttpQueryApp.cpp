@@ -31,11 +31,11 @@ CHttpQueryApp App;
 */
 
 #ifdef _DEBUG
-const char* CHttpQueryApp::VERSION      = "v1.1 [Debug]";
+const tchar* CHttpQueryApp::VERSION = TXT("v1.1 [Debug]");
 #else
-const char* CHttpQueryApp::VERSION      = "v1.1";
+const tchar* CHttpQueryApp::VERSION = TXT("v1.1");
 #endif
-const char* CHttpQueryApp::INI_FILE_VER = "1.0";
+const tchar* CHttpQueryApp::INI_FILE_VER = TXT("1.0");
 
 /******************************************************************************
 ** Method:		Constructor
@@ -89,7 +89,7 @@ CHttpQueryApp::~CHttpQueryApp()
 bool CHttpQueryApp::OnOpen()
 {
 	// Set the app title.
-	m_strTitle = "Http Query";
+	m_strTitle = TXT("Http Query");
 
 	// Load settings.
 	LoadConfig();
@@ -99,7 +99,7 @@ bool CHttpQueryApp::OnOpen()
 
 	if (nResult != 0)
 	{
-		FatalMsg("Failed to initialise WinSock layer: %d.", nResult);
+		FatalMsg(TXT("Failed to initialise WinSock layer: %d."), nResult);
 		return false;
 	}
 
@@ -161,27 +161,27 @@ bool CHttpQueryApp::OnClose()
 void CHttpQueryApp::LoadConfig()
 {
 	// Read the file version.
-	CString strVer = m_oIniFile.ReadString("Version", "Version", INI_FILE_VER);
+	CString strVer = m_oIniFile.ReadString(TXT("Version"), TXT("Version"), INI_FILE_VER);
 
 	// Read the MRU settings.
-	m_strLastHost = m_oIniFile.ReadString("Main", "LastHost", "");
-	m_nLastPort   = m_oIniFile.ReadInt   ("Main", "LastPort", m_nLastPort);
+	m_strLastHost = m_oIniFile.ReadString(TXT("Main"), TXT("LastHost"), TXT(""));
+	m_nLastPort   = m_oIniFile.ReadInt   (TXT("Main"), TXT("LastPort"), m_nLastPort);
 
 	// Read the window pos and size.
-	m_rcLastPos.left   = m_oIniFile.ReadInt("UI", "Left",   0);
-	m_rcLastPos.top    = m_oIniFile.ReadInt("UI", "Top",    0);
-	m_rcLastPos.right  = m_oIniFile.ReadInt("UI", "Right",  0);
-	m_rcLastPos.bottom = m_oIniFile.ReadInt("UI", "Bottom", 0);
+	m_rcLastPos.left   = m_oIniFile.ReadInt(TXT("UI"), TXT("Left"),   0);
+	m_rcLastPos.top    = m_oIniFile.ReadInt(TXT("UI"), TXT("Top"),    0);
+	m_rcLastPos.right  = m_oIniFile.ReadInt(TXT("UI"), TXT("Right"),  0);
+	m_rcLastPos.bottom = m_oIniFile.ReadInt(TXT("UI"), TXT("Bottom"), 0);
 
 	// Read the default headers.
-	int nDefHdrs = m_oIniFile.ReadInt("Headers", "Count", 0);
+	int nDefHdrs = m_oIniFile.ReadInt(TXT("Headers"), TXT("Count"), 0);
 
 	for (int i = 0; i < nDefHdrs; ++i)
 	{
 		CString strEntry, strHeader;
 
-		strEntry.Format("Header[%d]", i);
-		strHeader = m_oIniFile.ReadString("Headers", strEntry, "");
+		strEntry.Format(TXT("Header[%d]"), i);
+		strHeader = m_oIniFile.ReadString(TXT("Headers"), strEntry, TXT(""));
 
 		if (!strHeader.Empty())
 			m_astrDefHeaders.Add(strHeader);
@@ -203,28 +203,28 @@ void CHttpQueryApp::LoadConfig()
 void CHttpQueryApp::SaveConfig()
 {
 	// Write the file version.
-	m_oIniFile.WriteString("Version", "Version", INI_FILE_VER);
+	m_oIniFile.WriteString(TXT("Version"), TXT("Version"), INI_FILE_VER);
 
 	// Write the MRU settings.
-	m_oIniFile.WriteString("Main", "LastHost", m_strLastHost);
-	m_oIniFile.WriteInt   ("Main", "LastPort", m_nLastPort);
+	m_oIniFile.WriteString(TXT("Main"), TXT("LastHost"), m_strLastHost);
+	m_oIniFile.WriteInt   (TXT("Main"), TXT("LastPort"), m_nLastPort);
 
 	// Write the window pos and size.
-	m_oIniFile.WriteInt("UI", "Left",   m_rcLastPos.left  );
-	m_oIniFile.WriteInt("UI", "Top",    m_rcLastPos.top   );
-	m_oIniFile.WriteInt("UI", "Right",  m_rcLastPos.right );
-	m_oIniFile.WriteInt("UI", "Bottom", m_rcLastPos.bottom);
+	m_oIniFile.WriteInt(TXT("UI"), TXT("Left"),   m_rcLastPos.left  );
+	m_oIniFile.WriteInt(TXT("UI"), TXT("Top"),    m_rcLastPos.top   );
+	m_oIniFile.WriteInt(TXT("UI"), TXT("Right"),  m_rcLastPos.right );
+	m_oIniFile.WriteInt(TXT("UI"), TXT("Bottom"), m_rcLastPos.bottom);
 
 	// Write the default headers.
-	m_oIniFile.WriteInt("Headers", "Count", m_astrDefHeaders.Size());
+	m_oIniFile.WriteInt(TXT("Headers"), TXT("Count"), m_astrDefHeaders.Size());
 
-	for (int i = 0; i < m_astrDefHeaders.Size(); ++i)
+	for (size_t i = 0; i < m_astrDefHeaders.Size(); ++i)
 	{
 		CString strEntry;
 
-		strEntry.Format("Header[%d]", i);
+		strEntry.Format(TXT("Header[%d]"), i);
 
-		m_oIniFile.WriteString("Headers", strEntry, m_astrDefHeaders[i]);
+		m_oIniFile.WriteString(TXT("Headers"), strEntry, m_astrDefHeaders[i]);
 	}
 }
 
@@ -242,13 +242,13 @@ void CHttpQueryApp::SaveConfig()
 *******************************************************************************
 */
 
-bool CHttpQueryApp::GetHeaderValue(const char* pszHeaders, const char* pszField, CString& strValue)
+bool CHttpQueryApp::GetHeaderValue(const tchar* pszHeaders, const tchar* pszField, CString& strValue)
 {
 	bool bFound    = false;
-	int  nFieldLen = strlen(pszField);
+	int  nFieldLen = tstrlen(pszField);
 
 	// Split headers string into separate lines.
-	CStrTok oStrTok(pszHeaders, "\r\n", CStrTok::MERGE_SEPS);
+	CStrTok oStrTok(pszHeaders, TXT("\r\n"), CStrTok::MERGE_SEPS);
 
 	// Find field...
 	while ( (oStrTok.MoreTokens()) && (!bFound) )
@@ -257,9 +257,9 @@ bool CHttpQueryApp::GetHeaderValue(const char* pszHeaders, const char* pszField,
 		CString strLine = oStrTok.NextToken().Trim(true, false);
 
 		// Is the field we're after?
-		if (_strnicmp(strLine, pszField, nFieldLen) == 0)
+		if (tstrnicmp(strLine, pszField, nFieldLen) == 0)
 		{
-			const char* pszValue = strchr(strLine, ':');
+			const tchar* pszValue = tstrchr(strLine, ':');
 
 			// Extract field value.
 			if (pszValue != NULL)

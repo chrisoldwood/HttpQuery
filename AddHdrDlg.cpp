@@ -52,16 +52,16 @@ void CAddHdrDlg::OnInitDialog()
 	m_cbHeader.Font(CFont(ANSI_FIXED_FONT));
 
 	// Load header combo with defaults.
-	m_cbHeader.Add("Accept: */*");
-	m_cbHeader.Add("Accept-Language: en-gb");
-	m_cbHeader.Add("Connection: Close");
-	m_cbHeader.Add("Connection: Keep-Alive");
-	m_cbHeader.Add("Cookie: ");
-	m_cbHeader.Add("Host: www");
-	m_cbHeader.Add("Referer: http://");
-	m_cbHeader.Add("User-Agent: Mozilla/4.0");
-	m_cbHeader.Add("User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 4.0)");
-	m_cbHeader.Add("User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+	m_cbHeader.Add(TXT("Accept: */*"));
+	m_cbHeader.Add(TXT("Accept-Language: en-gb"));
+	m_cbHeader.Add(TXT("Connection: Close"));
+	m_cbHeader.Add(TXT("Connection: Keep-Alive"));
+	m_cbHeader.Add(TXT("Cookie: "));
+	m_cbHeader.Add(TXT("Host: www"));
+	m_cbHeader.Add(TXT("Referer: http://"));
+	m_cbHeader.Add(TXT("User-Agent: Mozilla/4.0"));
+	m_cbHeader.Add(TXT("User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 4.0)"));
+	m_cbHeader.Add(TXT("User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)"));
 }
 
 /******************************************************************************
@@ -83,14 +83,14 @@ bool CAddHdrDlg::OnOk()
 	// Validate input.
 	if (m_strHeader.Length() == 0)
 	{
-		AlertMsg("The header cannot be empty.");
+		AlertMsg(TXT("The header cannot be empty."));
 		m_cbHeader.Focus();
 		return false;
 	}
 
 	if (m_strHeader.Find(':') == -1)
 	{
-		AlertMsg("The header format should be \"Name: Value\".");
+		AlertMsg(TXT("The header format should be \"Name: Value\"."));
 		m_cbHeader.Focus();
 		return false;
 	}

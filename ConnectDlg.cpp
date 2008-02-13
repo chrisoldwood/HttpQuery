@@ -11,6 +11,7 @@
 #include "Common.hpp"
 #include "ConnectDlg.hpp"
 #include <limits.h>
+#include <WCL/StrCvt.hpp>
 
 /******************************************************************************
 ** Method:		Default constructor.
@@ -47,11 +48,9 @@ CConnectDlg::CConnectDlg()
 
 void CConnectDlg::OnInitDialog()
 {
-	char szValue[50];
-
 	// Display defaults.
 	m_ebHost.Text(m_strHost);
-	m_ebPort.Text(_itoa(m_nPort, szValue, 10));
+	m_ebPort.Text(CStrCvt::FormatUInt(m_nPort));
 }
 
 /******************************************************************************
@@ -73,17 +72,17 @@ bool CConnectDlg::OnOk()
 	// Validate host name.
 	if (m_strHost.Length() == 0)
 	{
-		AlertMsg("Please enter a host name or IP address.");
+		AlertMsg(TXT("Please enter a host name or IP address."));
 		m_ebHost.Focus();
 		return false;
 	}
 
-	m_nPort = atoi(m_ebPort.Text());
+	m_nPort = CStrCvt::ParseUInt(m_ebPort.Text());
 
 	// Validate port number.
 	if ( (m_ebPort.TextLength() == 0) || (m_nPort < 0) || (m_nPort > USHRT_MAX) )
 	{
-		AlertMsg("Please enter a valid port number (0 - 65535).");
+		AlertMsg(TXT("Please enter a valid port number (0 - 65535)."));
 		m_ebPort.Focus();
 		return false;
 	}

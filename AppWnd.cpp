@@ -144,7 +144,7 @@ void CAppWnd::UpdateTitle()
 	// Append connection, if open.
 	if (App.m_pSocket != NULL)
 	{
-		strTitle += " - ";
+		strTitle += TXT(" - ");
 		strTitle += App.m_strLastHost;
 	}
 

@@ -54,8 +54,8 @@ void CAppDlg::OnInitDialog()
 	m_dlgResponse.RunModeless(*this);
 
 	// Add the tab pages.
-	m_tcTabCtrl.AddTab("Request",  m_dlgRequest);
-	m_tcTabCtrl.AddTab("Response", m_dlgResponse);
+	m_tcTabCtrl.AddTab(TXT("Request"),  m_dlgRequest);
+	m_tcTabCtrl.AddTab(TXT("Response"), m_dlgResponse);
 	m_tcTabCtrl.CurSel(REQUEST_TAB);
 }
 

@@ -20,6 +20,8 @@
 #include <NCL/SocketException.hpp>
 #include <WCL/File.hpp>
 #include <WCL/FileException.hpp>
+#include <WCL/StrCvt.hpp>
+#include <Core/AnsiWide.hpp>
 
 /******************************************************************************
 **
@@ -28,11 +30,11 @@
 *******************************************************************************
 */
 
-static char szTXTExts[] = {	"Text Files (*.txt)\0*.txt\0"
-							"All Files (*.*)\0*.*\0"
-							"\0\0"							};
+static tchar szTXTExts[] = {	TXT("Text Files (*.txt)\0*.txt\0")
+								TXT("All Files (*.*)\0*.*\0")
+								TXT("\0\0")							};
 
-static char szTXTDefExt[] = { "txt" };
+static tchar szTXTDefExt[] = { TXT("txt") };
 
 /******************************************************************************
 ** Method:		Constructor.
@@ -136,7 +138,7 @@ void CAppCmds::OnServerConnect()
 		catch (CSocketException& e)
 		{
 			OnServerDisconnect();
-			App.AlertMsg("Failed to connect to server:\n\n%s", e.ErrorText());
+			App.AlertMsg(TXT("Failed to connect to server:\n\n%s"), e.ErrorText());
 		}
 	}
 
@@ -221,7 +223,7 @@ void CAppCmds::OnRequestSend()
 		// URL not set?
 		if (strURL.Length() == 0)
 		{
-			App.AlertMsg("Please enter the URL.");
+			App.AlertMsg(TXT("Please enter the URL."));
 			App.m_AppWnd.m_AppDlg.m_tcTabCtrl.CurSel(CAppDlg::REQUEST_TAB);
 			Dlg.m_ebURL.Focus();
 			return;
@@ -233,28 +235,28 @@ void CAppCmds::OnRequestSend()
 			int nPos;
 
 			// Ensure header lines are not doubly terminated.
-			while ((nPos = strHeaders.Find("\r\n\r\n")) != -1)
+			while ((nPos = strHeaders.Find(TXT("\r\n\r\n"))) != -1)
 				strHeaders.Delete(nPos, 2);
 
-			int nLength = strHeaders.Length();
+			size_t nLength = strHeaders.Length();
 
 			// Ensure final header line is terminated.
 			if ( (strHeaders[nLength-1] != '\r') && (strHeaders[nLength-1] != '\n') )
-				strHeaders += "\r\n";
+				strHeaders += TXT("\r\n");
 		}
 
 		// Format the full request.
 		CString strRequest;
 
-		strRequest.Format("%s %s %s\r\n%s\r\n%s", strVerb, strURL, strFormat, strHeaders, strContent);
+		strRequest.Format(TXT("%s %s %s\r\n%s\r\n%s"), strVerb, strURL, strFormat, strHeaders, strContent);
 
 		// Send it...
-		App.m_pSocket->Send(strRequest);
+		App.m_pSocket->Send(strRequest, strRequest.Length());
 	}
 	catch (CSocketException& e)
 	{
 		OnServerDisconnect();
-		App.AlertMsg("Failed to send request:\n\n%s", e.ErrorText());
+		App.AlertMsg(TXT("Failed to send request:\n\n%s"), e.ErrorText());
 		return;
 	}
 
@@ -268,7 +270,8 @@ void CAppCmds::OnRequestSend()
 		CString strContent;
 		CString strValue;
 
-		int     nContentLen = -1;
+		bool    bHaveLength = false;
+		size_t  nContentLen = 0;
 		DWORD   dwStartTime = ::GetTickCount();
 
 		// Read response.
@@ -286,7 +289,7 @@ void CAppCmds::OnRequestSend()
 
 				ASSERT(nRead > 0);
 
-				char* pszBuffer = (char*) oBuffer.Buffer();
+				char* pszBuffer = static_cast<char*>(oBuffer.Buffer());
 
 				// Convert binary data to text.
 				for (int i = 0; i < nRead; ++i)
@@ -297,8 +300,11 @@ void CAppCmds::OnRequestSend()
 						pszBuffer[i] = '.';
 				}
 
-				// Append to content.
-				strContent += oBuffer.ToString(nRead);
+				// Append the buffer to the content which we always treat as ANSI text.
+				const char* pBuffer = static_cast<const char*>(oBuffer.Buffer());
+				std::string strBuffer(pBuffer, pBuffer+nRead);
+
+				strContent += A2T(strBuffer.c_str());
 
 				// Got headers yet?
 				if (strHeaders.Empty())
@@ -306,20 +312,23 @@ void CAppCmds::OnRequestSend()
 					int nPos = -1;
 
 					// Look for the CRLFCRLF or CRCR termination characters.
-					if ( ((nPos = strContent.Find("\r\n\r\n")) != -1)
-					  || ((nPos = strContent.Find("\r\r"))     != -1) )
+					if ( ((nPos = strContent.Find(TXT("\r\n\r\n"))) != -1)
+					  || ((nPos = strContent.Find(TXT("\r\r")))     != -1) )
 					{
 						// Calculate header size.
-						int nTermChars = (strContent[nPos+1] == '\r') ? 2 : 4;
-						int nHdrSize   = nPos + nTermChars;
+						size_t nTermChars = (strContent[nPos+1U] == TXT('\r')) ? 2 : 4;
+						size_t nHdrSize   = nPos + nTermChars;
 
 						// Extract headers from content buffer.
 						strHeaders = strContent.Left(nHdrSize);
 						strContent.Delete(0, nHdrSize);
 
-						// Parse Content-Lemgth, if returned.
-						if (App.GetHeaderValue(strHeaders, "content-length:", strValue))
-							nContentLen = atoi(strValue);
+						// Parse Content-Length, if returned.
+						if (App.GetHeaderValue(strHeaders, TXT("content-length:"), strValue))
+						{
+							nContentLen = CStrCvt::ParseUInt(strValue);
+							bHaveLength = true;
+						}
 
 						// Display the response headers and any initial content.
 						App.m_AppWnd.m_AppDlg.m_tcTabCtrl.CurSel(CAppDlg::RESPONSE_TAB);		
@@ -330,17 +339,18 @@ void CAppCmds::OnRequestSend()
 						Dlg.m_ebContent.Update();
 
 						// Content length unspecified?
-						if (nContentLen == -1)
+						if (!bHaveLength)
 						{
-							const char* pszMsg = "Response field 'Content-Length' was not specified.\n\n"
-												 "Do you want to wait for more content?";
+							const tchar* pszMsg = TXT("Response field 'Content-Length' was not specified.\n\n")
+												  TXT("Do you want to wait for more content?");
 
 							// Query user to wait for content.
 							if (App.QueryMsg(pszMsg) != IDYES)
 								break;
 
 							// Assume infinite content length.
-							nContentLen = INT_MAX;
+							nContentLen = UINT_MAX;
+							bHaveLength = true;
 						}
 					}
 				}
@@ -357,7 +367,7 @@ void CAppCmds::OnRequestSend()
 			// Query user every 30 secs to wait for more content.
 			if ((::GetTickCount() - dwStartTime) > 10000)
 			{
-				const char* pszMsg = "Do you want to wait for more content?";
+				const tchar* pszMsg = TXT("Do you want to wait for more content?");
 
 				// Query user to wait for content.
 				if (App.QueryMsg(pszMsg) != IDYES)
@@ -375,7 +385,7 @@ void CAppCmds::OnRequestSend()
 	catch (CSocketException& e)
 	{
 		OnServerDisconnect();
-		App.AlertMsg("Failed to read response:\n\n%s", e.ErrorText());
+		App.AlertMsg(TXT("Failed to read response:\n\n%s"), e.ErrorText());
 		return;
 	}
 
@@ -403,30 +413,31 @@ void CAppCmds::OnResponseConvert()
 	CString strOldContent = Dlg.m_ebContent.Text();
 
 	// Calculate buffer size.
-	int nLength  = strOldContent.Length();
-	int nNumLFs  = strOldContent.Count('\n');
-	int nBufSize = (nLength - nNumLFs) + (nNumLFs * 2) + 1;
-	// Allocate space for the new content.
-	char* pszNewContent = (char*) alloca(nBufSize);
+	size_t nLength = strOldContent.Length();
+	size_t nNumLFs = strOldContent.Count(TXT('\n'));
+	size_t nChars  = (nLength - nNumLFs) + (nNumLFs * 2) + 1;
 
-	int n = 0;
+	// Allocate space for the new content.
+	tchar* pszNewContent = static_cast<tchar*>(alloca(Core::NumBytes<tchar>(nChars)));
+
+	size_t n = 0;
 
 	// Replace chars...
-	for (int i = 0; i < nLength; ++i)
+	for (size_t i = 0; i < nLength; ++i)
 	{
-		char cThisChar = strOldContent[i];
-		char cNextChar = ((i+1) < nLength) ? strOldContent[i+1] : '\0';
+		tchar cThisChar = strOldContent[i];
+		tchar cNextChar = ((i+1) < nLength) ? strOldContent[i+1] : TXT('\0');
 
 		// Copy char.
 		pszNewContent[n++] = cThisChar;
 
 		// Is next a LF AND this not a CR?
-		if ( (cNextChar == '\n') && (cThisChar != '\r') )
-			pszNewContent[n++] = '\r';
+		if ( (cNextChar == TXT('\n')) && (cThisChar != TXT('\r')) )
+			pszNewContent[n++] = TXT('\r');
 	}
 
 	// Terminate string.
-	pszNewContent[n] = '\0';
+	pszNewContent[n] = TXT('\0');
 
 	// Update response content.
 	Dlg.m_ebContent.Text(pszNewContent);
@@ -454,7 +465,7 @@ void CAppCmds::OnResponseCopyLocn()
 	CString strValue;
 
 	// Find header value, if returned.
-	if (App.GetHeaderValue(RspDlg.m_ebHeaders.Text(), "Location:", strValue))
+	if (App.GetHeaderValue(RspDlg.m_ebHeaders.Text(), TXT("Location:"), strValue))
 	{
 		// Trim whitespace.
 		strValue.Trim(true, true);
@@ -486,7 +497,7 @@ void CAppCmds::OnResponseCopyCookie()
 	CString strValue;
 
 	// Find header value, if returned.
-	if (App.GetHeaderValue(RspDlg.m_ebHeaders.Text(), "Set-Cookie:", strValue))
+	if (App.GetHeaderValue(RspDlg.m_ebHeaders.Text(), TXT("Set-Cookie:"), strValue))
 	{
 	}
 }
@@ -531,7 +542,7 @@ void CAppCmds::OnResponseSaveAs()
 	catch(CFileException& e)
 	{
 		// Notify user.
-		App.AlertMsg(e.ErrorText());
+		App.AlertMsg(TXT("%s"), e.ErrorText());
 	}
 }
 

@@ -87,7 +87,7 @@ void CResponseDlg::OnCtlColour(uint nCtlClrMsg, HDC hDC, HWND hCtlWnd)
 	if ( (hCtlWnd == m_ebHeaders.Handle()) || (hCtlWnd == m_ebContent.Handle()) )
 	{
 		// Return the normal window colour brush.
-		MsgHandled((BOOL)m_oBgBrush.Handle());
+		MsgHandled(reinterpret_cast<BOOL>(m_oBgBrush.Handle()));
 		MsgResult (0);
 	}
 	else

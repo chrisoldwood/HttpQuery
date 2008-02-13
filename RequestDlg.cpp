@@ -70,19 +70,19 @@ void CRequestDlg::OnInitDialog()
 	m_ebContent.Font(CFont(ANSI_FIXED_FONT));
 
 	// Add request types.
-	m_cbVerb.Add("GET");
-	m_cbVerb.Add("POST");
-	m_cbVerb.CurSel(0);
+	m_cbVerb.Add(TXT("GET"));
+	m_cbVerb.Add(TXT("POST"));
+	m_cbVerb.CurSel(0U);
 
 	// Set default URL.
-	m_ebURL.Text("/");
+	m_ebURL.Text(TXT("/"));
 
 	// Add request formats.
-	m_cbFormat.Add("HTTP/1.0");
-	m_cbFormat.Add("HTTP/1.1");
-	m_cbFormat.CurSel(0);
+	m_cbFormat.Add(TXT("HTTP/1.0"));
+	m_cbFormat.Add(TXT("HTTP/1.1"));
+	m_cbFormat.CurSel(0U);
 
 	// Add default headers.
-	for (int i = 0; i < App.m_astrDefHeaders.Size(); ++i)
-		m_ebHeaders.Append(App.m_astrDefHeaders[i] + "\r\n");
+	for (size_t i = 0; i < App.m_astrDefHeaders.Size(); ++i)
+		m_ebHeaders.Append(App.m_astrDefHeaders[i] + TXT("\r\n"));
 }

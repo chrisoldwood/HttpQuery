@@ -58,12 +58,12 @@ public:
 	//
 	// Helper methods.
 	//
-	static bool GetHeaderValue(const char* pszHeaders, const char* pszField, CString& strValue);
+	static bool GetHeaderValue(const tchar* pszHeaders, const tchar* pszField, CString& strValue);
 
 	//
 	// Constants.
 	//
-	static const char* VERSION;
+	static const tchar* VERSION;
 
 protected:
 	//
@@ -81,7 +81,7 @@ protected:
 	//
 	// Constants.
 	//
-	static const char* INI_FILE_VER;
+	static const tchar* INI_FILE_VER;
 };
 
 /******************************************************************************

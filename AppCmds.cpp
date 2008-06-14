@@ -138,7 +138,7 @@ void CAppCmds::OnServerConnect()
 		catch (CSocketException& e)
 		{
 			OnServerDisconnect();
-			App.AlertMsg(TXT("Failed to connect to server:\n\n%s"), e.ErrorText());
+			App.AlertMsg(TXT("Failed to connect to server:\n\n%s"), e.What());
 		}
 	}
 
@@ -256,7 +256,7 @@ void CAppCmds::OnRequestSend()
 	catch (CSocketException& e)
 	{
 		OnServerDisconnect();
-		App.AlertMsg(TXT("Failed to send request:\n\n%s"), e.ErrorText());
+		App.AlertMsg(TXT("Failed to send request:\n\n%s"), e.What());
 		return;
 	}
 
@@ -385,7 +385,7 @@ void CAppCmds::OnRequestSend()
 	catch (CSocketException& e)
 	{
 		OnServerDisconnect();
-		App.AlertMsg(TXT("Failed to read response:\n\n%s"), e.ErrorText());
+		App.AlertMsg(TXT("Failed to read response:\n\n%s"), e.What());
 		return;
 	}
 
@@ -542,7 +542,7 @@ void CAppCmds::OnResponseSaveAs()
 	catch(CFileException& e)
 	{
 		// Notify user.
-		App.AlertMsg(TXT("%s"), e.ErrorText());
+		App.AlertMsg(TXT("%s"), e.What());
 	}
 }
 

@@ -22,6 +22,7 @@
 #include <WCL/FileException.hpp>
 #include <WCL/StrCvt.hpp>
 #include <Core/AnsiWide.hpp>
+#include <malloc.h>
 
 /******************************************************************************
 **

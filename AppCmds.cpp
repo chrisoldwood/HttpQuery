@@ -139,7 +139,7 @@ void CAppCmds::OnServerConnect()
 		catch (CSocketException& e)
 		{
 			OnServerDisconnect();
-			App.AlertMsg(TXT("Failed to connect to server:\n\n%s"), e.What());
+			App.AlertMsg(TXT("Failed to connect to server:\n\n%s"), e.twhat());
 		}
 	}
 
@@ -257,7 +257,7 @@ void CAppCmds::OnRequestSend()
 	catch (CSocketException& e)
 	{
 		OnServerDisconnect();
-		App.AlertMsg(TXT("Failed to send request:\n\n%s"), e.What());
+		App.AlertMsg(TXT("Failed to send request:\n\n%s"), e.twhat());
 		return;
 	}
 
@@ -386,7 +386,7 @@ void CAppCmds::OnRequestSend()
 	catch (CSocketException& e)
 	{
 		OnServerDisconnect();
-		App.AlertMsg(TXT("Failed to read response:\n\n%s"), e.What());
+		App.AlertMsg(TXT("Failed to read response:\n\n%s"), e.twhat());
 		return;
 	}
 
@@ -419,7 +419,7 @@ void CAppCmds::OnResponseConvert()
 	size_t nChars  = (nLength - nNumLFs) + (nNumLFs * 2) + 1;
 
 	// Allocate space for the new content.
-	tchar* pszNewContent = static_cast<tchar*>(alloca(Core::NumBytes<tchar>(nChars)));
+	tchar* pszNewContent = static_cast<tchar*>(alloca(Core::numBytes<tchar>(nChars)));
 
 	size_t n = 0;
 
@@ -543,7 +543,7 @@ void CAppCmds::OnResponseSaveAs()
 	catch(CFileException& e)
 	{
 		// Notify user.
-		App.AlertMsg(TXT("%s"), e.What());
+		App.AlertMsg(TXT("%s"), e.twhat());
 	}
 }
 

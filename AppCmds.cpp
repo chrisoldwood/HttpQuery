@@ -233,10 +233,10 @@ void CAppCmds::OnRequestSend()
 		// Headers set?
 		if (strHeaders.Length() > 0)
 		{
-			int nPos;
+			size_t nPos;
 
 			// Ensure header lines are not doubly terminated.
-			while ((nPos = strHeaders.Find(TXT("\r\n\r\n"))) != -1)
+			while ((nPos = strHeaders.Find(TXT("\r\n\r\n"))) != Core::npos)
 				strHeaders.Delete(nPos, 2);
 
 			size_t nLength = strHeaders.Length();
@@ -278,7 +278,7 @@ void CAppCmds::OnRequestSend()
 		// Read response.
 		for(;;)
 		{
-			int nAvail = App.m_pSocket->Available();
+			size_t nAvail = App.m_pSocket->Available();
 
 			// Data to read?
 			if (nAvail > 0)
@@ -286,14 +286,14 @@ void CAppCmds::OnRequestSend()
 				oBuffer.Size(nAvail);
 
 				// Read all data available.
-				int nRead = App.m_pSocket->Recv(oBuffer);
+				size_t nRead = App.m_pSocket->Recv(oBuffer);
 
 				ASSERT(nRead > 0);
 
 				char* pszBuffer = static_cast<char*>(oBuffer.Buffer());
 
 				// Convert binary data to text.
-				for (int i = 0; i < nRead; ++i)
+				for (size_t i = 0; i < nRead; ++i)
 				{
 					uchar cChar = pszBuffer[i];
 
@@ -310,11 +310,11 @@ void CAppCmds::OnRequestSend()
 				// Got headers yet?
 				if (strHeaders.Empty())
 				{
-					int nPos = -1;
+					size_t nPos = Core::npos;
 
 					// Look for the CRLFCRLF or CRCR termination characters.
-					if ( ((nPos = strContent.Find(TXT("\r\n\r\n"))) != -1)
-					  || ((nPos = strContent.Find(TXT("\r\r")))     != -1) )
+					if ( ((nPos = strContent.Find(TXT("\r\n\r\n"))) != Core::npos)
+					  || ((nPos = strContent.Find(TXT("\r\r")))     != Core::npos) )
 					{
 						// Calculate header size.
 						size_t nTermChars = (strContent[nPos+1U] == TXT('\r')) ? 2 : 4;

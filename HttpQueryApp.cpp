@@ -216,7 +216,7 @@ void CHttpQueryApp::SaveConfig()
 	m_oIniFile.WriteInt(TXT("UI"), TXT("Bottom"), m_rcLastPos.bottom);
 
 	// Write the default headers.
-	m_oIniFile.WriteInt(TXT("Headers"), TXT("Count"), m_astrDefHeaders.Size());
+	m_oIniFile.WriteInt(TXT("Headers"), TXT("Count"), static_cast<int>(m_astrDefHeaders.Size()));
 
 	for (size_t i = 0; i < m_astrDefHeaders.Size(); ++i)
 	{
@@ -244,8 +244,8 @@ void CHttpQueryApp::SaveConfig()
 
 bool CHttpQueryApp::GetHeaderValue(const tchar* pszHeaders, const tchar* pszField, CString& strValue)
 {
-	bool bFound    = false;
-	int  nFieldLen = tstrlen(pszField);
+	bool   bFound    = false;
+	size_t nFieldLen = tstrlen(pszField);
 
 	// Split headers string into separate lines.
 	CStrTok oStrTok(pszHeaders, TXT("\r\n"), CStrTok::MERGE_SEPS);

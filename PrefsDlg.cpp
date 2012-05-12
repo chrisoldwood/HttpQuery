@@ -52,6 +52,8 @@ CPrefsDlg::CPrefsDlg()
 
 void CPrefsDlg::OnInitDialog()
 {
+	const size_t first = 0;
+
 	// Set headers listbox style.
 	m_lbHeaders.Font(CFont(ANSI_FIXED_FONT));
 
@@ -61,7 +63,7 @@ void CPrefsDlg::OnInitDialog()
 
 	// Select the 1st by default.
 	if (m_lbHeaders.Count() > 0)
-		m_lbHeaders.CurSel(0U);
+		m_lbHeaders.CurSel(first);
 
 	UpdateUI();
 }
@@ -104,6 +106,8 @@ bool CPrefsDlg::OnOk()
 
 void CPrefsDlg::OnAdd()
 {
+	const size_t first = 0;
+
 	CAddHdrDlg Dlg;
 
 	// Query user.
@@ -114,7 +118,7 @@ void CPrefsDlg::OnAdd()
 
 		// Update selection, if required.
 		if (m_lbHeaders.Count() == 1)
-			m_lbHeaders.CurSel(0U);
+			m_lbHeaders.CurSel(first);
 	}
 
 	UpdateUI();

@@ -65,6 +65,8 @@ CRequestDlg::CRequestDlg()
 
 void CRequestDlg::OnInitDialog()
 {
+	const size_t first = 0;
+
 	// Initialise edit boxes.
 	m_ebHeaders.Font(CFont(ANSI_FIXED_FONT));
 	m_ebContent.Font(CFont(ANSI_FIXED_FONT));
@@ -72,7 +74,7 @@ void CRequestDlg::OnInitDialog()
 	// Add request types.
 	m_cbVerb.Add(TXT("GET"));
 	m_cbVerb.Add(TXT("POST"));
-	m_cbVerb.CurSel(0U);
+	m_cbVerb.CurSel(first);
 
 	// Set default URL.
 	m_ebURL.Text(TXT("/"));
@@ -80,7 +82,7 @@ void CRequestDlg::OnInitDialog()
 	// Add request formats.
 	m_cbFormat.Add(TXT("HTTP/1.0"));
 	m_cbFormat.Add(TXT("HTTP/1.1"));
-	m_cbFormat.CurSel(0U);
+	m_cbFormat.CurSel(first);
 
 	// Add default headers.
 	for (size_t i = 0; i < App.m_astrDefHeaders.Size(); ++i)

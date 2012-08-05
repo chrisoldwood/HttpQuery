@@ -50,6 +50,7 @@ static tchar szTXTDefExt[] = { TXT("txt") };
 */
 
 CAppCmds::CAppCmds()
+//	: CCmdControl(IDR_APPTOOLBAR)
 {
 	// Define the command table.
 	DEFINE_CMD_TABLE

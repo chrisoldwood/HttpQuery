@@ -103,9 +103,6 @@ bool CHttpQueryApp::OnOpen()
 		return false;
 	}
 
-	// Load the toolbar bitmap.
-	m_rCmdControl.CmdBitmap().LoadRsc(IDR_APPTOOLBAR);
-
 	// Create the main window.
 	if (!m_AppWnd.Create())
 		return false;
@@ -118,7 +115,7 @@ bool CHttpQueryApp::OnOpen()
 	m_AppWnd.Show(m_iCmdShow);
 
 	// Update UI.
-	m_AppCmds.UpdateUI();
+	m_AppCmds.InitialiseUI();
 
 	return true;
 }

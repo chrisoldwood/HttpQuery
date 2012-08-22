@@ -51,6 +51,8 @@ const tchar* CHttpQueryApp::INI_FILE_VER = TXT("1.0");
 
 CHttpQueryApp::CHttpQueryApp()
 	: CApp(m_AppWnd, m_AppCmds)
+	, m_AppWnd()
+	, m_AppCmds(m_AppWnd)
 	, m_pSocket(NULL)
 	, m_nLastPort(80)
 {
@@ -108,7 +110,7 @@ bool CHttpQueryApp::OnOpen()
 		return false;
 
 	// Show it.
-	if (ShowNormal() && !m_rcLastPos.Empty())
+	if (!m_rcLastPos.Empty())
 		m_AppWnd.Move(m_rcLastPos);
 
 	// Show it.

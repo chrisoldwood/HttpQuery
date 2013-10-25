@@ -4,10 +4,7 @@
 	Version="7.10"
 	Name="HttpQuery"
 	ProjectGUID="{8FA8DD72-7576-4059-937C-5F8185EF7E6F}"
-	SccProjectName="SAK"
-	SccAuxPath="SAK"
-	SccLocalPath="SAK"
-	SccProvider="SAK">
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
 			Name="Win32"/>

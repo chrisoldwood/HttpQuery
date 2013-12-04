@@ -253,7 +253,9 @@ void CAppCmds::OnRequestSend()
 		strRequest.Format(TXT("%s %s %s\r\n%s\r\n%s"), strVerb, strURL, strFormat, strHeaders, strContent);
 
 		// Send it...
-		App.m_pSocket->Send(strRequest, strRequest.Length());
+		std::string request = T2A(strRequest);
+
+		App.m_pSocket->Send(request.c_str(), request.length());
 	}
 	catch (CSocketException& e)
 	{

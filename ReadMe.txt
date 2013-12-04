@@ -1,24 +1,32 @@
 HttpQuery v1.1
 ==============
 
-1) Installation.
+Introduction
+------------
 
-Copy the file HttpQuery.exe to a folder.
+This is a simple GUI based tool for making HTTP requests against web servers. It
+is designed to allow you full control over the headers and content which is more
+useful with REST style APIs these days.
 
+I wrote it as a diagnostic tool to help understand how proxies and gateways were
+interfering with the traffic from a real-time service I was working on at the
+time.
 
-2) Uninstallation.
+Documentation
+-------------
 
-Delete the files HttpQuery.exe and HttpQuery.ini.
+None yet.
 
+Development
+-----------
 
-3) Manual/Help/Contact Info etc.
+See DevNotes.txt
 
-There is no manual at present.
+Contact Details
+---------------
 
-EMail: gort@cix.co.uk
-Web:   http://www.cix.co.uk/~gort
-
+Email: gort@cix.co.uk
+Web:   http://www.chrisoldwood.com
 
 Chris Oldwood 
-
 19th June 2003

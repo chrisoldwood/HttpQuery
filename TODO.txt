@@ -7,3 +7,17 @@
 - Disable UI when not connected.
 
 - Support for handling forms.
+
+- Detect Connection: close header and close socket.
+
+- Pressing enter on URL should send it.
+
+- Remember URLs.
+
+- Socket send() needs text based overload to handle Unicode/Ansi conversion.
+
+- IP v6 support.
+
+- Widen various UI fields.
+
+- Update About dialog.

@@ -73,7 +73,10 @@ void CRequestDlg::OnInitDialog()
 
 	// Add request types.
 	m_cbVerb.Add(TXT("GET"));
+	m_cbVerb.Add(TXT("HEAD"));
 	m_cbVerb.Add(TXT("POST"));
+	m_cbVerb.Add(TXT("PUT"));
+	m_cbVerb.Add(TXT("DELETE"));
 	m_cbVerb.CurSel(first);
 
 	// Set default URL.

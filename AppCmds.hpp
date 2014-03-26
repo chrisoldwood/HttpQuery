@@ -55,8 +55,8 @@ public:
 	void OnResponseCopyCookie();
 	void OnResponseSaveAs();
 
-	// Options menu.
-	void OnOptionsPrefs();
+	// Tools menu.
+	void OnToolsOptions();
 
 	// Window menu.
 	void OnWindowRequest();

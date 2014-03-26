@@ -18,4 +18,6 @@
 
 - IP v6 support.
 
-- Widen various UI fields.
+- Connection status in status bar
+
+- Auto-connect when disconnected.

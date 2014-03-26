@@ -65,8 +65,8 @@ CAppCmds::CAppCmds(CAppWnd& appWnd)
 		CMD_ENTRY(ID_RESPONSE_LOCN,		&CAppCmds::OnResponseCopyLocn,		&CAppCmds::OnUIResponseCopyLocn,	-1)
 		CMD_ENTRY(ID_RESPONSE_COOKIE,	&CAppCmds::OnResponseCopyCookie,	&CAppCmds::OnUIResponseCopyCookie,	-1)
 		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	&CAppCmds::OnResponseSaveAs,		&CAppCmds::OnUIResponseSaveAs,		-1)
-		// Options menu.
-		CMD_ENTRY(ID_OPTIONS_PREFS,		&CAppCmds::OnOptionsPrefs,			NULL,								-1)
+		// Tools menu.
+		CMD_ENTRY(ID_TOOLS_OPTIONS,		&CAppCmds::OnToolsOptions,			NULL,								-1)
 		// Window menu.
 		CMD_ENTRY(ID_WINDOW_REQUEST,	&CAppCmds::OnWindowRequest,			NULL,								-1)
 		CMD_ENTRY(ID_WINDOW_RESPONSE,	&CAppCmds::OnWindowResponse,		NULL,								-1)
@@ -551,7 +551,7 @@ void CAppCmds::OnResponseSaveAs()
 }
 
 /******************************************************************************
-** Method:		OnOptionsPrefs()
+** Method:		OnToolsOptions()
 **
 ** Description:	Configure the application.
 **
@@ -562,7 +562,7 @@ void CAppCmds::OnResponseSaveAs()
 *******************************************************************************
 */
 
-void CAppCmds::OnOptionsPrefs()
+void CAppCmds::OnToolsOptions()
 {
 	CPrefsDlg Dlg;
 

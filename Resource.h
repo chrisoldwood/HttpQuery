@@ -17,8 +17,8 @@
 #define ID_RESPONSE_LOCN                303
 #define ID_RESPONSE_COOKIE              304
 #define ID_RESPONSE_SAVE_AS             309
-#define ID_OPTIONS_POPUP                400
-#define ID_OPTIONS_PREFS                401
+#define ID_TOOLS_POPUP                  400
+#define ID_TOOLS_OPTIONS                401
 #define ID_WINDOW_POPUP                 800
 #define ID_WINDOW_REQUEST               801
 #define ID_WINDOW_RESPONSE              802
@@ -53,7 +53,7 @@
 #define IDD_REQUEST                     5002
 #define IDD_RESPONSE                    5003
 #define IDD_CONNECT                     5004
-#define IDD_PREFS                       5005
+#define IDD_OPTIONS                     5005
 #define IDD_DEF_HEADER                  5006
 #define IDC_STATIC                      -1
 

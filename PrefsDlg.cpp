@@ -26,7 +26,7 @@
 */
 
 CPrefsDlg::CPrefsDlg()
-	: CDialog(IDD_PREFS)
+	: CDialog(IDD_OPTIONS)
 {
 	DEFINE_CTRL_TABLE
 		CTRL(IDC_HEADERS, &m_lbHeaders)

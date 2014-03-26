@@ -19,5 +19,3 @@
 - IP v6 support.
 
 - Widen various UI fields.
-
-- Update About dialog.

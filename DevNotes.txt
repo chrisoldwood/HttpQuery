@@ -7,9 +7,10 @@ this:-
 +-HttpQuery
 | +-Test
 +-Lib
-  +-Core
-  +-NCL
-  +-WCL
+| +-Core
+| +-NCL
+| +-WCL
++-Scripts
 
 The following commands will create that structure by cloning the various
 application and library repositories:-

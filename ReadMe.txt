@@ -12,6 +12,15 @@ I wrote it as a diagnostic tool to help understand how proxies and gateways were
 interfering with the traffic from a real-time service I was working on at the
 time.
 
+Releases
+--------
+
+Stable releases are formally packaged and made available from my Win32 tools page:
+http://www.chrisoldwood.com/win32.htm
+
+The latest code is available from my GitHub repo:
+https://github.com/chrisoldwood/HttpQuery
+
 Documentation
 -------------
 

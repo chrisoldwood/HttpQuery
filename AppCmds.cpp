@@ -137,7 +137,7 @@ void CAppCmds::OnServerConnect()
 			App.m_AppWnd.m_AppDlg.m_tcTabCtrl.CurSel(CAppDlg::REQUEST_TAB);
 			App.m_AppWnd.m_AppDlg.m_dlgRequest.m_ebURL.Focus();
 		}
-		catch (CSocketException& e)
+		catch (const CSocketException& e)
 		{
 			OnServerDisconnect();
 			App.AlertMsg(TXT("Failed to connect to server:\n\n%s"), e.twhat());
@@ -257,7 +257,7 @@ void CAppCmds::OnRequestSend()
 
 		App.m_pSocket->Send(request.c_str(), request.length());
 	}
-	catch (CSocketException& e)
+	catch (const CSocketException& e)
 	{
 		OnServerDisconnect();
 		App.AlertMsg(TXT("Failed to send request:\n\n%s"), e.twhat());
@@ -386,7 +386,7 @@ void CAppCmds::OnRequestSend()
 		// Display the final response content.
 		Dlg.m_ebContent.Text(strContent);
 	}
-	catch (CSocketException& e)
+	catch (const CSocketException& e)
 	{
 		OnServerDisconnect();
 		App.AlertMsg(TXT("Failed to read response:\n\n%s"), e.twhat());
@@ -543,7 +543,7 @@ void CAppCmds::OnResponseSaveAs()
 
 		oFile.Close();
 	}
-	catch(CFileException& e)
+	catch(const CFileException& e)
 	{
 		// Notify user.
 		App.AlertMsg(TXT("%s"), e.twhat());

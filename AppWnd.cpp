@@ -139,7 +139,7 @@ void CAppWnd::UpdateTitle()
 	CString strTitle = App.m_strTitle;
 
 	// Append connection, if open.
-	if (App.m_pSocket != NULL)
+	if (App.m_pSocket != nullptr)
 	{
 		strTitle += TXT(" - ");
 		strTitle += App.m_strLastHost;

@@ -57,7 +57,7 @@ CAppCmds::CAppCmds(CAppWnd& appWnd)
 		// Server menu.
 		CMD_ENTRY(ID_SERVER_CONNECT,	&CAppCmds::OnServerConnect,			&CAppCmds::OnUIServerConnect,		-1)
 		CMD_ENTRY(ID_SERVER_DISCONNECT,	&CAppCmds::OnServerDisconnect,		&CAppCmds::OnUIServerDisconnect,	-1)
-		CMD_ENTRY(ID_SERVER_EXIT,		&CAppCmds::OnServerExit,			NULL,								-1)
+		CMD_ENTRY(ID_SERVER_EXIT,		&CAppCmds::OnServerExit,			nullptr,							-1)
 		// Request menu.
 		CMD_ENTRY(ID_REQUEST_SEND,		&CAppCmds::OnRequestSend,			&CAppCmds::OnUIRequestSend,			-1)
 		// Response menu.
@@ -66,14 +66,14 @@ CAppCmds::CAppCmds(CAppWnd& appWnd)
 		CMD_ENTRY(ID_RESPONSE_COOKIE,	&CAppCmds::OnResponseCopyCookie,	&CAppCmds::OnUIResponseCopyCookie,	-1)
 		CMD_ENTRY(ID_RESPONSE_SAVE_AS,	&CAppCmds::OnResponseSaveAs,		&CAppCmds::OnUIResponseSaveAs,		-1)
 		// Tools menu.
-		CMD_ENTRY(ID_TOOLS_OPTIONS,		&CAppCmds::OnToolsOptions,			NULL,								-1)
+		CMD_ENTRY(ID_TOOLS_OPTIONS,		&CAppCmds::OnToolsOptions,			nullptr,							-1)
 		// Window menu.
-		CMD_ENTRY(ID_WINDOW_REQUEST,	&CAppCmds::OnWindowRequest,			NULL,								-1)
-		CMD_ENTRY(ID_WINDOW_RESPONSE,	&CAppCmds::OnWindowResponse,		NULL,								-1)
-		CMD_ENTRY(ID_WINDOW_NEXT,		&CAppCmds::OnWindowNext,			NULL,								-1)
-		CMD_ENTRY(ID_WINDOW_PREV,		&CAppCmds::OnWindowPrev,			NULL,								-1)
+		CMD_ENTRY(ID_WINDOW_REQUEST,	&CAppCmds::OnWindowRequest,			nullptr,							-1)
+		CMD_ENTRY(ID_WINDOW_RESPONSE,	&CAppCmds::OnWindowResponse,		nullptr,							-1)
+		CMD_ENTRY(ID_WINDOW_NEXT,		&CAppCmds::OnWindowNext,			nullptr,							-1)
+		CMD_ENTRY(ID_WINDOW_PREV,		&CAppCmds::OnWindowPrev,			nullptr,							-1)
 		// Help menu.
-		CMD_ENTRY(ID_HELP_ABOUT,		&CAppCmds::OnHelpAbout,				NULL,								10)
+		CMD_ENTRY(ID_HELP_ABOUT,		&CAppCmds::OnHelpAbout,				nullptr,							10)
 	END_CMD_TABLE
 }
 
@@ -123,7 +123,7 @@ void CAppCmds::OnServerConnect()
 			// Close existing connection.
 			OnServerDisconnect();
 
-			ASSERT(App.m_pSocket == NULL);
+			ASSERT(App.m_pSocket == nullptr);
 
 			// Allocate a socket and connect.
 			App.m_pSocket = new CTCPCltSocket;
@@ -163,11 +163,11 @@ void CAppCmds::OnServerConnect()
 void CAppCmds::OnServerDisconnect()
 {
 	// Connection open?
-	if (App.m_pSocket != NULL)
+	if (App.m_pSocket != nullptr)
 	{
 		delete App.m_pSocket;
 
-		App.m_pSocket = NULL;
+		App.m_pSocket = nullptr;
 	}
 
 	UpdateUI();
@@ -206,7 +206,7 @@ void CAppCmds::OnServerExit()
 
 void CAppCmds::OnRequestSend()
 {
-	ASSERT((App.m_pSocket != NULL) && (App.m_pSocket->IsOpen()));
+	ASSERT((App.m_pSocket != nullptr) && (App.m_pSocket->IsOpen()));
 
 	CBusyCursor oCursor;
 
@@ -645,14 +645,14 @@ void CAppCmds::OnUIServerConnect()
 
 void CAppCmds::OnUIServerDisconnect()
 {
-	bool bConnOpen = (App.m_pSocket != NULL);
+	bool bConnOpen = (App.m_pSocket != nullptr);
 
 	App.m_AppWnd.Menu()->EnableCmd(ID_SERVER_DISCONNECT, bConnOpen);
 }
 
 void CAppCmds::OnUIRequestSend()
 {
-	bool bConnOpen = (App.m_pSocket != NULL);
+	bool bConnOpen = (App.m_pSocket != nullptr);
 
 	App.m_AppWnd.Menu()->EnableCmd(ID_REQUEST_SEND, bConnOpen);
 }

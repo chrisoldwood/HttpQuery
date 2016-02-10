@@ -53,7 +53,7 @@ CHttpQueryApp::CHttpQueryApp()
 	: CApp(m_AppWnd, m_AppCmds)
 	, m_AppWnd()
 	, m_AppCmds(m_AppWnd)
-	, m_pSocket(NULL)
+	, m_pSocket(nullptr)
 	, m_nLastPort(80)
 {
 
@@ -261,7 +261,7 @@ bool CHttpQueryApp::GetHeaderValue(const tchar* pszHeaders, const tchar* pszFiel
 			const tchar* pszValue = tstrchr(strLine, ':');
 
 			// Extract field value.
-			if (pszValue != NULL)
+			if (pszValue != nullptr)
 				strValue = pszValue+1;
 
 			bFound = true;

@@ -250,7 +250,7 @@ void CAppCmds::OnRequestSend()
 		// Format the full request.
 		CString strRequest;
 
-		strRequest.Format(TXT("%s %s %s\r\n%s\r\n%s"), strVerb, strURL, strFormat, strHeaders, strContent);
+		strRequest.Format(TXT("%s %s %s\r\n%s\r\n%s"), strVerb.c_str(), strURL.c_str(), strFormat.c_str(), strHeaders.c_str(), strContent.c_str());
 
 		// Send it...
 		std::string request = T2A(strRequest);
